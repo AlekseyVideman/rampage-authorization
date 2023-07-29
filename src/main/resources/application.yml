@@ -1,9 +1,19 @@
+authorization:
+  jwt:
+    secret: 'Усердно тренируйтесь, не будьте занудой, наслаждайтесь жизнью и не воспринимайте все всерьез. Zyzz'
+    expiration-seconds: 259_200 # 3 дня
 spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: create-drop
   application:
     name: authorization
   datasource:
     username: ${DATABASE_USER:postgres}
-    password: ${DATABASE_PASSWORD:postgres}
+    password: ${DATABASE_PASSWORD:809765}
     url: ${DATABASE_HOST_JDBC:jdbc:postgresql://localhost:5432}/authorization
     driver-class-name: org.postgresql.Driver
   liquibase:
