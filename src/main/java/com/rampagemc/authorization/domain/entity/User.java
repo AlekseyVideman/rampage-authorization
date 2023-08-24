@@ -1,4 +1,4 @@
-package com.rampagemc.authorization.model.entity;
+package com.rampagemc.authorization.domain.entity;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
