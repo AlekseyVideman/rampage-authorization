@@ -1,42 +1,36 @@
 package com.rampagemc.authorization.controller;
 
-import com.rampagemc.authorization.dto.UserDto;
-import com.rampagemc.authorization.model.service.DomainUserService;
-import com.rampagemc.authorization.model.service.JwtTokenService;
-import io.jsonwebtoken.jackson.io.JacksonSerializer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.AuthenticatedPrincipal;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.rampagemc.authorization.dto.request.UserDto;
+import com.rampagemc.authorization.dto.response.AuthResponseDto;
+import com.rampagemc.authorization.service.RegisterUserService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
+import java.security.Principal;
 
-@RequestMapping("/web")
+@Slf4j
 @RestController
+@RequestMapping("/web")
+@RequiredArgsConstructor
 public class RegAuthController {
-    @Autowired
-    private DomainUserService userService;
 
-    @Autowired
-    private JwtTokenService jwtTokenService;
+    private final RegisterUserService userService;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/register")
-    public ResponseEntity<String> register(RegistrationRequest reg) {
-        userService.registerUser(new UserDto(reg.getUsername(), reg.getPassword()));
-        return ResponseEntity.ok().build();
+    public void register(UserDto userDto) {
+        userService.registerUser(userDto);
     }
 
     @PostMapping("/auth")
-    public ResponseEntity<AuthResponse> auth(UserDetailsService userDetailsService, AuthenticatedPrincipal principal) {
-        var userDetails = userDetailsService.loadUserByUsername(principal.getName());
-        System.out.println("Я ЗДЕСЬ ААААА УУУУУ /AUTH");
-        // TODO я не уверен в какой отдаёт getPassword, сырой или хешированный.
-        var token = jwtTokenService.generateToken(userDetails.getUsername(), userDetails.getPassword());
-        var f = new AuthResponse(userDetails.getUsername(), token.token());
-        System.out.println("ВОТ ЭТО Я ДОЛЖЕН БЫЛ УВИДЕТЬ!!!  " + Arrays.toString(new JacksonSerializer<AuthResponse>().serialize(f)));
-        return ResponseEntity.ok(f);
+    public AuthResponseDto auth(Principal principal) {
+        var user = userService.getRegisteredUser(principal.getName());
+        return new AuthResponseDto(user.getUsername(), user.getToken().token());
     }
 }
+

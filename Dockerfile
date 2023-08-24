@@ -4,10 +4,10 @@ MAINTAINER Alexander <BigTows> Chapchuk
 COPY --chown=gradle:gradle . /home/gradle/project
 WORKDIR /home/gradle/project
 
-RUN gradle clean location-service:build -x location-service:test
+RUN gradle clean authorization-service:build -x authorization-service:test
 
 FROM openjdk:17
 
 RUN mkdir /app
-COPY --from=build /home/gradle/project/location-service/build/libs/*.jar /app/application.jar
+COPY --from=build /home/gradle/project/build/libs/*.jar /app/application.jar
 CMD ["java", "-jar","/app/application.jar"]
