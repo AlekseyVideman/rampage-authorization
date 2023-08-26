@@ -3,6 +3,8 @@ authorization:
     secret: 'Усердно тренируйтесь, не будьте занудой, наслаждайтесь жизнью и не воспринимайте все всерьез. Zyzz'
     expiration-seconds: 259_200 # 3 дня
 spring:
+  main:
+    allow-bean-definition-overriding: true
   jpa:
     hibernate:
       naming:
