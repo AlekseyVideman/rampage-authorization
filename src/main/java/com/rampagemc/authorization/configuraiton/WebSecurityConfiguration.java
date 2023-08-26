@@ -19,7 +19,7 @@ public class WebSecurityConfiguration {
                 .sessionManagement().disable()
                 .rememberMe().disable()
                 .authorizeHttpRequests(matcher -> matcher
-                        .requestMatchers("/web/register").permitAll()
+                        .requestMatchers("/web/register", "/actuator/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic()
                 .authenticationEntryPoint(authenticationEntryPoint)
