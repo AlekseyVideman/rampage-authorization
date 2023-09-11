@@ -33,7 +33,7 @@ ext {
     mapStructVersion = '1.5.3.Final'
     mapStructLombokVersion = '0.2.0'
     logbookVersion = '3.3.0'
-    backlibVersion = '0.1.7'
+    backlibVersion = '0.3.1'
 }
 
 dependencies {
@@ -42,14 +42,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation "io.hypersistence:hypersistence-utils-hibernate-60:${hibernateStructuresVersion}"
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion"
-
-    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
-    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
-
 
     implementation "com.rampagemc:backlib-rampage:$backlibVersion"
 

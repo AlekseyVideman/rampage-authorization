@@ -22,11 +22,12 @@ public class GenerateJwtServiceImpl implements GenerateJwtService {
     private final JwtProperties jwtProperties;
 
     @Override
-    public JwtToken generateToken(String username) {
+    public JwtToken generateToken(String username, String id) {
         Key hmacKey = new SecretKeySpec(jwtProperties.getSecret().getBytes(StandardCharsets.UTF_8),
                 SignatureAlgorithm.HS256.getJcaName());
         String jwt = Jwts.builder()
                 .setSubject(username)
+                .setId(id)
                 .setExpiration(Date.from(Instant.now().plus(jwtProperties.getExpirationSeconds(), ChronoUnit.SECONDS)))
                 .signWith(hmacKey)
                 .compact();
