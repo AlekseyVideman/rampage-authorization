@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import java.util.Locale;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * An entity model from the LimboAuth plugin, described in
@@ -60,10 +61,11 @@ public class LimboAuthUser {
     @Column(name = "`ISSUEDTIME`")
     private Long tokenIssuedAt = System.currentTimeMillis();
 
-    public LimboAuthUser(String nickname, String hashedPassword) {
+    public LimboAuthUser(String nickname, String hashedPassword, UUID uuid) {
         this.nickname = nickname;
         this.lowercaseNickname = nickname.toLowerCase(Locale.ROOT);
         this.hash = hashedPassword;
+        this.uuid = uuid.toString();
     }
 
     @Override

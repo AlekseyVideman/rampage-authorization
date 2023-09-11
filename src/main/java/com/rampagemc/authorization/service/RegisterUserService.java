@@ -37,8 +37,9 @@ public class RegisterUserService {
 
     public User getRegisteredUser(String name) {
         val limboAuthUser = userRepository.findByLowercaseNickname(name.toLowerCase(Locale.ROOT)).get(); // value is guaranteed to be not null
+        val uuid = limboAuthUser.getUuid();
         val user = limboUserMapper.toUser(limboAuthUser);
-            user.setToken(generateJwtService.generateToken(name));
+            user.setToken(generateJwtService.generateToken(name, uuid));
         return user;
     }
 }
