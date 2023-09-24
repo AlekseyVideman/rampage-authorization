@@ -3,6 +3,7 @@ package com.rampagemc.authorization.controller;
 import com.rampagemc.authorization.dto.request.UserDto;
 import com.rampagemc.authorization.dto.response.AuthResponseDto;
 import com.rampagemc.authorization.service.RegisterUserService;
+import com.rampagemc.backlib.configuration.property.RestConfiguration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import java.security.Principal;
 
 @Slf4j
 @RestController
-@RequestMapping("/web")
+@RequestMapping(RestConfiguration.WEB)
 @RequiredArgsConstructor
 public class RegAuthController {
 
